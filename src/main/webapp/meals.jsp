@@ -11,15 +11,21 @@
 <head>
     <title>Meals</title>
     <style type="text/css">
-        table{
+        table {
             width: 60%;
             border-collapse: collapse;
+        }
+        tr.isExcess{
+            color: red;
+        }
+        tr.noExcess{
+            color: green;
         }
         th {
             padding: 10px 0px 10px 0px;
             text-align: center;
             font-weight: bold;
-            border: solid thin black;
+            border: transparent;
         }
         td {
             padding: 10px 10px 10px 10px;
@@ -31,20 +37,8 @@
 <h3><a href="index.html">Home</a></h3>
 <hr>
 <h2>Meals</h2>
-<ol>
-    <%
-        for (MealTo mealTo : mealToList) {
-            out.println("<li" +
-                    (mealTo.isExcess() ? " style=\"background-color: lightpink;\"" : "") + ">" +
-                    mealTo.getDateTime() + " - " +
-                    mealTo.getDescription() + " - " +
-                    mealTo.getCalories() +
-                    "</li>");
-        }
-    %>
-</ol>
-<table border="1">
-    <caption>Список еды</caption>
+<%--    <caption>Список еды</caption>--%>
+<table>
     <tr>
         <th>Дата/Время</th>
         <th>Описание</th>
@@ -52,12 +46,11 @@
     </tr>
     <%
         for (MealTo mealTo : mealToList) {
-            out.println("<tr" +
-                    (mealTo.isExcess() ? " style=\"background-color: lightpink;\"" : "") + ">" +
-                    mealTo.getDateTime() + " - " +
-                    mealTo.getDescription() + " - " +
-                    mealTo.getCalories() +
-                    "</li>");
+            out.println("<tr class=\"" + (mealTo.isExcess() ? "isExcess" : "noExcess") + "\">" +
+                    "<td>" + mealTo.getDateTime().toString().replace("T", " ") + "</td>" +
+                    "<td>" + mealTo.getDescription() + "</td>" +
+                    "<td>" + mealTo.getCalories() + "</td>" +
+                    "</tr>");
         }
     %>
 </table>
