@@ -1,11 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="ru.javawebinar.topjava.model.MealTo" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-
-<%
-    ArrayList<MealTo> mealToList = (ArrayList<MealTo>) request.getAttribute("mealTos");
-%>
 
 <html lang="ru">
 <head>
