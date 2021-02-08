@@ -23,7 +23,7 @@ public class MealsUtil {
         mealsTo.forEach(System.out::println);
     }
 
-    public static List<Meal> createMeals () {
+    public static List<Meal> createMeals() {
         return Arrays.asList(
                 new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500),
                 new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 13, 0), "Обед", 1000),

@@ -11,19 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MealServlet extends HttpServlet {
     private static final Logger log = getLogger(MealServlet.class);
+    private static final List<Meal> meals = MealsUtil.createMeals();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("create meal list");
-        List<Meal> meals = MealsUtil.createMeals();
-//        LocalTime startTime =  LocalTime.of(0, 0);
-//        LocalTime endTime =  LocalTime.of(0, 0);
 
         LocalTime minTime =  LocalTime.MIN;
         LocalTime maxTime =  LocalTime.MAX;
