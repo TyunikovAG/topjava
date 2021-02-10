@@ -10,7 +10,7 @@ public interface MealDao {
     void deleteMeal(Meal meal);
     void deleteMeal(int id);
     Meal getMealByID(int id);
-    void updateMeal(Meal meal);
+    void updateMeal(int id, Meal meal);
     List<Meal> getAllMeal();
 
 }
