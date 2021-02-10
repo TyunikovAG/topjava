@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -25,7 +24,7 @@ public class DeleteMealServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             repoMeals.deleteMeal(id);
         } catch (NumberFormatException formatException){
-
+            log.debug("illegal format of id");
         }
 
 //        request.getRequestDispatcher("/meals.jsp").forward(request, response);

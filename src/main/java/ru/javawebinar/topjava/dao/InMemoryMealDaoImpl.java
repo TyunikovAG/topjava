@@ -51,6 +51,7 @@ public class InMemoryMealDaoImpl implements MealDao {
 
     @Override
     public void updateMeal(int id, Meal meal) {
+        meal.setId(id);
         storage.put(id, meal);
     }
 

@@ -47,7 +47,7 @@
             <td><c:out value="${mealTo.getDateTime().toString().replace(\"T\", \" \")}"/></td>
             <td><c:out value="${mealTo.getDescription()}"/></td>
             <td><c:out value="${mealTo.getCalories()}"/></td>
-            <td><a href="edit-meal?id=${mealTo.getId()}">EDIT</a></td>
+            <td><a href="edit-meal.jsp?id=${mealTo.getId()}&datetime=${mealTo.getDateTime()}&description=${mealTo.getDescription()}&calories=${mealTo.getCalories()}">EDIT</a></td>
             <td><a href="delete-meal?id=${mealTo.getId()}">DELETE</a></td>
         </tr>
     </c:forEach>
