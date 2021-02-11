@@ -10,18 +10,17 @@
 <body>
 <h3><a href="index.html">Home</a></h3>
 <hr>
-<h2>Edit meal</h2>
+<h2>Add meal</h2>
 <form action="meals" method="post">
-    <input type="hidden" name="action" value="edit">
-    <input type="hidden" value="<c:out value = "${meal.id}"/>" name="id" >
+    <input type="hidden" name="action" value="add">
     <label for="dt-input">DateTime: </label>
-    <input type="datetime-local" id="dt-input" value="<c:out value = "${meal.dateTime}"/>" name="datetime">
+    <input type="datetime-local" id="dt-input" name="datetime" value="${time}">
     <br><br>
     <label for="description-input">Description: </label>
-    <input type="text" id="description-input" size="50" value="<c:out value = "${meal.description}"/>" name="description">
+    <input type="text" id="description-input" size="50" name="description">
     <br><br>
     <label for="calories-input">Calories: </label>
-    <input type="number" min="0" id="calories-input" size="50" value="<c:out value = "${meal.calories}"/>" name="calories">
+    <input type="number" min="0" id="calories-input" size="50" name="calories">
     <br><br>
     <p>______________________________
         <input type="submit" value="Save">

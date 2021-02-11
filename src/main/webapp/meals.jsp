@@ -36,6 +36,7 @@
 <h3><a href="index.html">Home</a></h3>
 <hr>
 <h2>Meals</h2>
+<a href="meals?action=create">Add meal</a>
 <table>
     <tr>
         <th>Дата/Время</th>
@@ -45,10 +46,10 @@
     <c:forEach var="mealTo" items="${mealTos}">
         <tr class="${mealTo.isExcess() ? "isExcess" : "noExcess"}">
             <td><c:out value="${mealTo.getDateTime().toString().replace(\"T\", \" \")}"/></td>
-            <td><c:out value="${mealTo.getDescription()}"/></td>
-            <td><c:out value="${mealTo.getCalories()}"/></td>
-            <td><a href="edit-meal.jsp?id=${mealTo.getId()}&datetime=${mealTo.getDateTime()}&description=${mealTo.getDescription()}&calories=${mealTo.getCalories()}">EDIT</a></td>
-            <td><a href="delete-meal?id=${mealTo.getId()}">DELETE</a></td>
+            <td>${mealTo.getDescription()}</td>
+            <td>${mealTo.getCalories()}</td>
+            <td><a href="meals?action=edit&id=${mealTo.getId()}">EDIT</a></td>
+            <td><a href="meals?action=delete&id=${mealTo.getId()}">DELETE</a></td>
         </tr>
     </c:forEach>
 </table>
