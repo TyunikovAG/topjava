@@ -37,12 +37,6 @@ public class InMemoryMealRepository implements MealRepository {
     }
 
 
-    @Override
-    public Meal save(Meal meal, int userId) {
-        InMemoryBaseRepository<Meal> meals = usersMealsMap.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>());
-        return meals.save(meal);
-    }
-
     @PostConstruct
     public void postConstruct() {
         log.info("+++ PostConstruct");
@@ -51,6 +45,12 @@ public class InMemoryMealRepository implements MealRepository {
     @PreDestroy
     public void preDestroy() {
         log.info("+++ PreDestroy");
+    }
+
+    @Override
+    public Meal save(Meal meal, int userId) {
+        InMemoryBaseRepository<Meal> meals = usersMealsMap.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>());
+        return meals.save(meal);
     }
 
     @Override
