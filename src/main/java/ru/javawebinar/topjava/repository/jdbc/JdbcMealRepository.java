@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -42,21 +43,36 @@ public class JdbcMealRepository implements MealRepository {
     // null if updated meal does not belong to userId
     // TODO: 24.02.2021 implemet
     public Meal save(Meal meal, int userId) {
-//        String query = String.format("SELECT * FROM meals " +
-//                "WHERE user_id = %d " +
-//                "AND id = %d " +
-//                "ORDER BY dateTime DESC", userId, id);
-//        log.debug(query);
-//        List<Meal> result = jdbcTemplate.query(query, ROW_MAPPER);
-//        return result.isEmpty()? null : result.get(0);
-        return null;
+        log.debug("try to create/save meal");
+
+//        UPDATE meals SET (datetime, description, calories) =
+//                ('2020-02-20 15:00:00', 'Февральский обед', 1800)
+//        WHERE id = 100007 and user_id = 100000;
+        String query = "UPDATE meals SET (datetime, description, calories) = (:datetime, :description, :calories) " +
+                "WHERE id = :id and user_id = :user_id;";
+        MapSqlParameterSource parameterMap = new MapSqlParameterSource()
+                .addValue("id", meal.getId())
+                .addValue("datetime", meal.getDateTime())
+                .addValue("calories", meal.getCalories())
+                .addValue("description", meal.getDescription())
+                .addValue("user_id", userId);
+
+        if (meal.isNew()) {
+            Number newKey = insertMeal.executeAndReturnKey(parameterMap);
+            meal.setId(newKey.intValue());
+        } else if (namedParameterJdbcTemplate.update(
+                "UPDATE meals SET datetime=:datetime, calories=:calories, description=:description " +
+                        "WHERE id = :id and user_id = :user_id;", parameterMap) == 0) {
+            return null;
+        }
+        return meal;
     }
 
     @Override
     // false if meal does not belong to userId
     // TODO: 24.02.2021 implemet
     public boolean delete(int id, int userId) {
-        return false;
+        return jdbcTemplate.update("DELETE FROM meals WHERE id=?", id) != 0;
     }
 
     @Override
