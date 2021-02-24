@@ -41,15 +41,9 @@ public class JdbcMealRepository implements MealRepository {
 
     @Override
     // null if updated meal does not belong to userId
-    // TODO: 24.02.2021 implemet
     public Meal save(Meal meal, int userId) {
         log.debug("try to create/save meal");
 
-//        UPDATE meals SET (datetime, description, calories) =
-//                ('2020-02-20 15:00:00', 'Февральский обед', 1800)
-//        WHERE id = 100007 and user_id = 100000;
-        String query = "UPDATE meals SET (datetime, description, calories) = (:datetime, :description, :calories) " +
-                "WHERE id = :id and user_id = :user_id;";
         MapSqlParameterSource parameterMap = new MapSqlParameterSource()
                 .addValue("id", meal.getId())
                 .addValue("datetime", meal.getDateTime())
@@ -70,9 +64,8 @@ public class JdbcMealRepository implements MealRepository {
 
     @Override
     // false if meal does not belong to userId
-    // TODO: 24.02.2021 implemet
     public boolean delete(int id, int userId) {
-        return jdbcTemplate.update("DELETE FROM meals WHERE id=?", id) != 0;
+        return jdbcTemplate.update("DELETE FROM meals WHERE id=? AND user_id=?", id, userId) != 0;
     }
 
     @Override
